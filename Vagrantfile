@@ -10,18 +10,6 @@ Vagrant.configure(2) do |config|
       echo "sudo su -" >> .bashrc
   SHELL
 
-  # Master Server
-  config.vm.define "master" do |master|
-    master.vm.box = "hashicorp/bionic64"
-    master.vm.hostname = "master"
-    master.vm.network "private_network", ip: "172.42.42.100"
-    master.vm.provider "virtualbox" do |v|
-      v.name = "master"
-      v.memory = 1024
-      v.cpus = 1
-    end
-  end
-
   NodeCount = 3
 
   # Postgres Worker Nodes
