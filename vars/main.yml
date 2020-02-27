@@ -1,29 +1,25 @@
 ---
 # Proxy variables (optional) for download packages using a proxy server
 proxy_env: {}
-#  http_proxy: http://10.128.64.9:3128
-#  https_proxy: http://10.128.64.9:3128
-
-# -------------------------------------------
 
 # Cluster variables
-cluster_vip: "172.42.42.101" # for client access to databases in the cluster (optional)
+cluster_vip: "172.42.42.101" # for client access to databases in the cluster
 vip_interface: "{{ ansible_default_ipv4.interface }}" # interface name (ex. "ens32")
 
 patroni_cluster_name: "postgres-cluster"  # specify the cluster name
 patroni_install_version: "latest"  # or specific version (example 1.5.6)
 
 patroni_superuser_username: "postgres"
-patroni_superuser_password: "postgres-pass" # please change password
+patroni_superuser_password: "postgres-pass"
 patroni_replication_username: "replicator"
-patroni_replication_password: "replicator-pass" # please change password
+patroni_replication_password: "replicator-pass"
 
-synchronous_mode: 'false'  # or 'true' for enable synchronous database replication
+synchronous_mode: 'false'  # for enabling synchronous database replication
 synchronous_mode_strict: 'false' # if 'true' then block all client writes to the master, when a synchronous replica is not available
 
 
 # Load Balancing
-with_haproxy_load_balancing: 'false' # or 'true' if you want to install and configure the load-balancing (based on haproxy+confd+keepalived)
+with_haproxy_load_balancing: 'false' # 'true' -> to configure the load-balancing (based on haproxy+confd+keepalived)
 ## if variable "with_haproxy_load_balancing: 'true'"
 keepalived_virtual_router_id: "133"  # specify a unique virtual_router_id
 
@@ -38,28 +34,16 @@ vip_manager_interval: "1000"  # time (in milliseconds) after which vip-manager w
 dcs_exists: 'false' # or 'true' if you do not want to install and configure the etcd cluster
 dcs_type: "etcd"
 
- # if variable "dcs_exists=false" and "dcs_type=etcd":
+# if variable "dcs_exists=false" and "dcs_type=etcd":
 etcd_ver: "v3.3.18" # version for deploy etcd cluster
 etcd_data_dir: "/var/lib/etcd"
 etcd_cluster_name: "etcd-{{ patroni_cluster_name }}" # ETCD_INITIAL_CLUSTER_TOKEN
 
- # if variable "dcs_exists=true" and "dcs_type=etcd" - specify ip-address your etcd cluster in the "patroni_etcd_hosts" variable
- # example (use existing cluster of 3 nodes)
+# if variable "dcs_exists=true" and "dcs_type=etcd" - specify ip-address your etcd cluster in the "patroni_etcd_hosts" variable
 patroni_etcd_hosts: []
-#  - { host: "10.128.64.140", port: "2379" }
-#  - { host: "10.128.64.142", port: "2379" }
-#  - { host: "10.128.64.143", port: "2379" }
-
- # more options you can specify in the templates/patroni.yml.j2
- # documentation:
- # https://patroni.readthedocs.io/en/latest/SETTINGS.html#etcd
- # https://patroni.readthedocs.io/en/latest/SETTINGS.html#consul
- # https://patroni.readthedocs.io/en/latest/SETTINGS.html#zookeeper
-
 
 # PostgreSQL variables
 postgresql_version: "11"
-# postgresql_data_dir: see vars/Debian.yml or vars/RedHat.yml
 postgresql_port: "5432"
 postgresql_encoding: "UTF8"       # for bootstrap only (initdb)
 postgresql_locale: "en_US.UTF-8"  # for bootstrap only (initdb)

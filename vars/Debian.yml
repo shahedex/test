@@ -1,6 +1,4 @@
 ---
-# Vars for Debian based distributions
-
 # PostgreSQL variables
 postgresql_cluster_name: "main"
 postgresql_data_dir: "/var/lib/postgresql/{{ postgresql_version }}/{{ postgresql_cluster_name }}"
@@ -171,8 +169,3 @@ packages_from_file: []
 #  - "my-package-name_1_amd64.deb"
 #  - "my-package-name_2_amd64.deb"
 #  - ""
-
-# ----------------------------------------------------------------------------------------------------------------------------------
-# Attention! If you want to use the installation method "file".
-# You need to independently determine all the necessary the dependencies of deb packages for your version of the Linux distribution.
-# ----------------------------------------------------------------------------------------------------------------------------------
